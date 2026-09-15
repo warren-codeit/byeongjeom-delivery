@@ -77,6 +77,7 @@ canvas#g{width:100%;height:100%;display:block}
 h1{font-size:40px;line-height:1.05;margin:0;color:var(--yel);letter-spacing:-.02em;text-shadow:3px 3px 0 var(--red)}
 .pre{font-size:14px;color:var(--tan);font-weight:500;margin-bottom:4px}.feat{font-size:13px;color:var(--cream);margin-top:6px;font-weight:500}
 #storePhoto{display:block;width:100%;max-height:120px;object-fit:cover;border-radius:12px;margin:10px 0 2px;border:2px solid var(--tan)}
+#foodPhoto{display:block;width:100%;max-height:96px;object-fit:cover;object-position:center 60%;border-radius:12px;margin:2px 0 6px;border:2px solid var(--tan)}
 .sub{color:var(--cream);font-size:14px;margin:6px 0 14px;font-weight:500}
 .box{border:1px dashed var(--tan);border-radius:12px;padding:10px 12px;margin:10px 0}
 .box .lab{margin-bottom:4px}
@@ -153,10 +154,11 @@ h1{font-size:40px;line-height:1.05;margin:0;color:var(--yel);letter-spacing:-.02
   <h1 id="rTitle" style="font-size:34px">배달 완료!</h1>
   <div class="sub" id="rSub"></div>
   <div class="score" id="rScore">0점</div>
+  <img id="foodPhoto" alt="" src="assets/img/food.jpg" onerror="this.remove()">
   <div class="rows" id="rRows"></div>
   <div class="best" id="rBest"></div>
   <div class="two" style="margin-top:12px"><button class="go alt" id="again">다시</button><button class="go" id="share">공유</button></div>
-  <div class="help" style="text-align:center">공유하면 점수 링크와 결과 카드가 만들어진다</div>
+  <div class="help" style="text-align:center">공유하면 점수 링크와 결과 카드가 만들어진다 · <a href="assets/img/menu.jpg" target="_blank" rel="noopener" style="color:var(--yel)">병점점 메뉴판</a></div>
 </div></div>
 <div id="foot">지도 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · 3D 모델 <a href="https://kenney.nl" target="_blank" rel="noopener">Kenney</a>(CC0) · 서체 땅스부대찌개체 · 비공식 개인 프로젝트</div>
 <div id="load"><span id="loadtxt">병점 지도를 세우는 중…</span><div class="bar"><i></i></div></div>
@@ -592,7 +594,8 @@ function drawRank(){ const rows = [{ n: '나', s: G.prog, css: '#ffcf4d', me: tr
 
 // ───────── 스폰 ─────────
 const objGroup = new THREE.Group(); scene.add(objGroup);
-function newOrder(){ const keys = SARI_KEYS.slice().sort(() => Math.random() - 0.5); G.order = { spicy: Math.random() < 0.5, sari: [keys[0], keys[1]] }; }
+const MENU = ['가득햄 부대찌개', '깡통햄 부대찌개', '모둠 부대찌개', '십센치 부대찌개', '토마토 부대찌개', '베이컨 부대찌개', '왕만두 부대찌개', '치즈 부대찌개'];
+function newOrder(){ const keys = SARI_KEYS.slice().sort(() => Math.random() - 0.5); G.order = { spicy: Math.random() < 0.5, sari: [keys[0], keys[1]], menu: pick(MENU) }; }
 function spawnWorld(){
   for (const o of G.objs) if (o.m.userData.mixer){ const i = mixers.indexOf(o.m.userData.mixer); if (i >= 0) mixers.splice(i, 1); }
   while (objGroup.children.length) objGroup.remove(objGroup.children[0]); G.objs = []; cones.length = 0; for (const m of SKIDS) m.visible = false;
@@ -620,7 +623,7 @@ function spawnWorld(){
 function recover(){ if (G.scene !== 'play' || G.recoverCd > 0) return; G.recoverCd = 2; const p = atS(Math.max(0, G.prog - 4)); G.x = p.x; G.z = p.y; G.h = p.a; G.vd = p.a; G.v = 0; G.drift = 0; G.jump = 0; G.soup = Math.max(1, G.soup - 8); toast('경로로 복귀 −8', 'bad'); burst(kart.position.clone().setY(0.6), 16, M.smoke, puffGeo, 2, 3, 0.9, 0); beep(330, 0.15, 'triangle', 0.05); }
 function placeAtStart(){ const p0 = atS(0); G.x = p0.x; G.z = p0.y; G.h = p0.a; G.vd = p0.a; G.v = 0; G.prog = 0; G.routeD = 0; }
 function toTitle(){ G.scene = 'title'; G.pot = null; newOrder(); Object.assign(G, { soup: 100, bag: [], jump: 0, air: 0, drift: 0, gauge: 0, boost: 0, slip: 0, boosts: 0, steer: 0 }); placeAtStart(); spawnWorld();
-  $('tOrder').textContent = (G.order.spicy ? '매운맛' : '보통맛') + ' 부대찌개 3인분'; $('tSaris').innerHTML = G.order.sari.map(k => `<span class="chip"><i class="sq" style="background:#${SARI[k].c.toString(16).padStart(6, '0')}"></i>${SARI[k].n}</span>`).join('');
+  $('tOrder').textContent = G.order.menu + ' 3인분 · ' + (G.order.spicy ? '매운맛' : '보통맛'); $('tSaris').innerHTML = G.order.sari.map(k => `<span class="chip"><i class="sq" style="background:#${SARI[k].c.toString(16).padStart(6, '0')}"></i>${SARI[k].n}</span>`).join('');
   document.querySelectorAll('.pot').forEach(p => p.classList.remove('sel')); $('go').disabled = true; $('go').textContent = '냄비를 고르면 출발';
   $('tBest').textContent = (G.best ? '내 최고 ' + G.best + '점' : '') + (G.friend ? ' · 친구 기록 ' + G.friend.s + '점 (국물 ' + G.friend.soup + '%)' : '');
   $('title').classList.add('show'); $('result').classList.remove('show'); $('hud').style.display = 'none'; $('foot').style.display = ''; }
