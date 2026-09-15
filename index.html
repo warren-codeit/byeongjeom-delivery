@@ -45,9 +45,11 @@ canvas#g{width:100%;height:100%;display:block}
 #rank i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:-1px}
 #rankBig{position:absolute;right:12px;top:calc(292px + env(safe-area-inset-top));text-align:right;text-shadow:0 2px 0 #000,0 0 10px rgba(0,0,0,.6)}
 #rankBig b{font-size:42px;line-height:1;color:var(--yel)}#rankBig span{font-size:14px;color:var(--tan)}
-#slot{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(150px + env(safe-area-inset-bottom));width:96px;text-align:center;background:rgba(26,20,18,.82);border:2px solid var(--tan);border-radius:14px;padding:5px 6px 7px}
-#slot .lab{font-size:10px}#slotIco{font-size:15px;line-height:1.15;margin-top:3px;min-height:34px;display:flex;align-items:center;justify-content:center;border-radius:8px;padding:3px}
+#slot{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(150px + env(safe-area-inset-bottom));width:120px;text-align:center;background:rgba(26,20,18,.82);border:2px solid var(--tan);border-radius:14px;padding:5px 6px 7px}
+#slot .lab{font-size:10px}#slotIco{font-size:46px;line-height:1;margin-top:3px;min-height:56px;display:flex;align-items:center;justify-content:center;border-radius:10px;padding:3px;font-family:-apple-system,system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif}#slotName{font-size:11px;color:var(--cream);margin-top:3px;min-height:13px;line-height:1.1}
 #slot.has{border-color:var(--yel);box-shadow:0 0 0 3px rgba(255,207,77,.25)}#slot.roll #slotIco{animation:blink .1s infinite alternate}
+#boostReady{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(262px + env(safe-area-inset-bottom));font-size:22px;color:var(--yel);text-shadow:0 2px 0 var(--red),0 0 14px rgba(0,0,0,.6);animation:blink .35s infinite alternate;pointer-events:none;white-space:nowrap;display:none}
+.btn.drift.full{border-color:var(--yel);box-shadow:0 0 0 3px rgba(255,207,77,.45);background:#7a4a10}
 #count{position:absolute;left:0;right:0;top:34%;text-align:center;font-size:88px;color:var(--yel);text-shadow:4px 4px 0 var(--red),0 0 30px rgba(0,0,0,.6);pointer-events:none;opacity:0}
 #count.go{color:var(--grn)}
 #mini canvas{width:100%;height:100%}
@@ -123,7 +125,8 @@ h1{font-size:40px;line-height:1.05;margin:0;color:var(--yel);letter-spacing:-.02
   <div id="rank"></div>
   <div id="mini"><canvas id="minic" width="280" height="280"></canvas></div>
   <div id="rankBig"><b id="rankPos">-</b><span id="rankOf"> / 5</span></div>
-  <div id="slot"><div class="lab">아이템 · E</div><div id="slotIco">비었음</div></div>
+  <div id="slot"><div class="lab">아이템 · E</div><div id="slotIco"></div><div id="slotName">비었음</div></div>
+  <div id="boostReady">부스터 준비! Shift · 드리프트 끝</div>
   <div id="count"></div>
   <div id="warn"></div>
   <div id="toasts"></div>
@@ -148,7 +151,7 @@ h1{font-size:40px;line-height:1.05;margin:0;color:var(--yel);letter-spacing:-.02
   <div class="lab">맞는 냄비를 고르세요</div>
   <div class="pots"><div class="pot" data-s="0"><div class="potico"></div>보통맛</div><div class="pot" data-s="1"><div class="potico spicy"></div>매운맛</div></div>
   <button class="go" id="go" disabled>냄비를 고르면 출발</button>
-  <div class="help"><b>↑</b> 가속 · <b>↓</b> 브레이크·후진 · <b>← →</b> 조향 · <b>스페이스</b> 점프 · <b>Shift</b> 드리프트 · <b>E</b> 아이템 · <b>R</b> 경로 복귀<br><b>출발</b>: 카운트다운 GO 직후 ↑를 누르면 출발 부스터<br><b>드리프트</b>: 방향키를 누른 채 Shift. 반대 방향키로 반경 조절. 게이지가 차 있으면 놓는 순간 <b>풀 부스터</b>(국물 안 샘). 드리프트를 끊은 직후의 타이밍은 직접 찾아보길<br>길은 자유. 도로 위 <b>노란 화살표</b>·길 안내판·미니맵이 경로를 알려 준다<br>요철·차·보행자·빨간불을 피하고 시속 86km 넘으면 국물이 샌다. 공중의 <b>육수 팩</b>은 점프해서 먹기. <b>국물 도둑</b>은 경적(두 번 탭)으로 겁주기<br><b>? 박스</b>를 먹으면 아이템: 냄비 뚜껑(1회 방어) · 니트로 · 고추장 폭탄 · 사리 자석 · 물풍선</div>
+  <div class="help"><b>↑</b> 가속 · <b>↓</b> 브레이크·후진 · <b>← →</b> 조향 · <b>스페이스</b> 점프 · <b>Shift</b> 드리프트 · <b>E</b> 아이템 · <b>R</b> 경로 복귀<br><b>출발</b>: 카운트다운 GO 직후 ↑를 누르면 출발 부스터<br><b>드리프트</b>: 방향키를 누른 채 Shift. 반대 방향키로 반경 조절. 박지 않고 끝내면 게이지가 크게 찬다(평주행은 조금씩). 게이지가 차면 놓는 순간, 또는 방향키 없이 Shift로 <b>풀 부스터</b>(국물 안 샘). 드리프트를 끊는 순간의 타이밍은 직접 찾아보길<br>길은 자유. 도로 위 <b>노란 화살표</b>·길 안내판·미니맵이 경로를 알려 준다<br>요철·차·보행자·빨간불을 피하고 시속 86km 넘으면 국물이 샌다. 공중의 <b>육수 팩</b>은 점프해서 먹기. <b>국물 도둑</b>은 경적(두 번 탭)으로 겁주기<br><b>? 박스</b>를 먹으면 아이템: 냄비 뚜껑(1회 방어) · 니트로 · 고추장 폭탄 · 사리 자석 · 물풍선</div>
   <div class="best" id="tBest"></div>
 </div></div>
 <div class="screen" id="result"><div class="panel">
@@ -170,7 +173,7 @@ import { clone as skClone } from './assets/js/utils/SkeletonUtils.js';
 // ───────── 설정 ─────────
 const CFG = {
   TIME: 120, VMAX: 29, ACC: 11, BRK: 18, COAST: 2.5, REV: 7,
-  STEER: 2.6, DRIFT_TURN: 2.7, DRIFT_MIN_V: 11, DRIFT_FILL: 0.34, BOOST_T: 1.4, BOOST_V: 40, MINI_T: 0.5, MINI_V: 34, ITEM_GAP: 125, RIVALS: 4,
+  STEER: 2.6, DRIFT_TURN: 2.7, DRIFT_MIN_V: 11, DRIFT_FILL: 0.42, BOOST_T: 1.4, BOOST_V: 40, MINI_T: 0.8, MINI_V: 36, ITEM_GAP: 125, RIVALS: 4,
   DRAIN_V: 24, DRAIN_K: 0.25, OFFROAD_V: 11, OFFROAD_DRAIN: 2.2,
   DMG: { pothole: 12, car: 20, ped: 25, signal: 15, land: 1.5, wall: 10, cone: 1.5, villain: 14 }, REFILL: 25,
   WEIGHT: 0.12, WEIGHT_MAX: 6, JUMP_T: 0.62, JUMP_H: 1.6, HONK_CD: 1.2,
@@ -240,7 +243,7 @@ function inBuilding(x, y){ const list = bldGrid.get(gkey(x, y)); if (!list) retu
 
 // ───────── 상태 ─────────
 const G = { scene: 'load', t: 0, timeLeft: CFG.TIME, x: 0, z: 0, h: 0, vd: 0, v: 0, steer: 0, steerIn: 0, accel: false, brake: false, drift: 0, driftDir: 0, gauge: 0, boost: 0, slip: 0, soup: 100, prog: 0, routeD: 0, lost: 0, order: null, pot: null, bag: [], score: 0, objs: [], shake: 0, slow: 0, jump: 0, air: 0, honkT: 0, honkCd: 0, landmarks: [], nextLm: 1, best: 0, friend: null, result: null, tilt: 0, tiltV: 0, boosts: 0, refills: 0, dmg: {}, surface: 'road', bump: 0, skidT: 0 };
-Object.assign(G, { item: null, rolling: 0, itemT: 0, itemsUsed: 0, shield: 0, magnet: 0, driftT: 0, count: 0, startWin: 0, rank: 1, camKick: 0, grace: 0, recoverCd: 0, spawnBurst: 0 });
+Object.assign(G, { item: null, rolling: 0, itemT: 0, itemsUsed: 0, shield: 0, magnet: 0, driftT: 0, count: 0, startWin: 0, rank: 1, camKick: 0, grace: 0, recoverCd: 0, spawnBurst: 0, upT: -9, gauge0: 0, driftFail: false });
 try { G.best = +localStorage.getItem('bj.best') || 0; } catch (e) {}
 if (URLQ.get('s')) G.friend = { s: +URLQ.get('s'), soup: +URLQ.get('soup') || 0 };
 
@@ -567,12 +570,12 @@ for (let i = 0; i < SKID_N; i++){ const m = new THREE.Mesh(skidGeo, M.skid); m.r
 function skid(x, z, ang){ for (const sx of [-0.55, 0.55]){ const m = SKIDS[skidI++ % SKID_N]; m.position.set(x - Math.sin(ang) * sx, 0.09, z + Math.cos(ang) * sx); m.rotation.z = -ang + Math.PI / 2; m.visible = true; } }
 
 // ───────── 아이템 ─────────
-const ITEMS = { lid: { n: '냄비 뚜껑', c: '#a5d8ff', w: 22, d: '충돌 1회 막음' }, nitro: { n: '니트로', c: '#4dabf7', w: 22, d: '즉시 부스터' }, bomb: { n: '고추장 폭탄', c: '#ff8a65', w: 24, d: '앞으로 발사' }, magnet: { n: '사리 자석', c: '#ffcf4d', w: 17, d: '6초간 끌어옴' }, water: { n: '물풍선', c: '#74c0fc', w: 15, d: '앞에 던져 3초 정지' } };
+const ITEMS = { lid: { n: '냄비 뚜껑', e: '🍲', c: '#a5d8ff', w: 22, d: '충돌 1회 막음' }, nitro: { n: '니트로', e: '🚀', c: '#4dabf7', w: 22, d: '즉시 부스터' }, bomb: { n: '고추장 폭탄', e: '🌶️', c: '#ff8a65', w: 24, d: '앞으로 발사' }, magnet: { n: '사리 자석', e: '🧲', c: '#ffcf4d', w: 17, d: '6초간 끌어옴' }, water: { n: '물풍선', e: '🎈', c: '#74c0fc', w: 15, d: '앞에 던져 3초 정지' } };
 const ITEM_KEYS = Object.keys(ITEMS); const PROJ = [];
 function makeItemBox(){ const g = new THREE.Group(); const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); x.fillStyle = '#ffcf4d'; x.fillRect(0, 0, 128, 128); x.fillStyle = '#e5392e'; x.font = '700 96px Ddang, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('?', 64, 70); const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
   const box = new THREE.Mesh(new THREE.BoxGeometry(1.15, 1.15, 1.15), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.35, emissive: 0x553300, emissiveIntensity: 0.35 })); box.position.y = 1.3; box.castShadow = true; const halo = new THREE.Mesh(new THREE.TorusGeometry(0.95, 0.06, 6, 20), M.spark); halo.rotation.x = Math.PI / 2; halo.position.y = 0.25; g.add(box, halo); g.userData.box = box; attachLabel(g, '아이템 박스', '#ffcf4d', 2.6); return g; }
 function pickItem(){ const tot = ITEM_KEYS.reduce((a, k) => a + ITEMS[k].w, 0); let r = Math.random() * tot; for (const k of ITEM_KEYS){ r -= ITEMS[k].w; if (r <= 0) return k; } return 'lid'; }
-function drawSlot(){ const s = $('slot'), ico = $('slotIco'); if (G.rolling > 0){ const k = ITEM_KEYS[Math.floor(G.t * 14) % ITEM_KEYS.length]; ico.textContent = ITEMS[k].n; ico.style.background = ITEMS[k].c + '33'; s.classList.add('roll'); s.classList.remove('has'); } else if (G.item){ ico.textContent = ITEMS[G.item].n; ico.style.background = ITEMS[G.item].c + '55'; ico.style.color = '#fff4e3'; s.classList.add('has'); s.classList.remove('roll'); } else { ico.textContent = '비었음'; ico.style.background = 'transparent'; ico.style.color = '#d8b98f'; s.classList.remove('has', 'roll'); } $('bI').classList.toggle('off', !G.item); }
+function drawSlot(){ const s = $('slot'), ico = $('slotIco'), nm = $('slotName'); if (G.rolling > 0){ const k = ITEM_KEYS[Math.floor(G.t * 14) % ITEM_KEYS.length]; ico.textContent = ITEMS[k].e; nm.textContent = ITEMS[k].n; ico.style.background = ITEMS[k].c + '33'; s.classList.add('roll'); s.classList.remove('has'); } else if (G.item){ ico.textContent = ITEMS[G.item].e; nm.textContent = ITEMS[G.item].n + ' · ' + ITEMS[G.item].d; ico.style.background = ITEMS[G.item].c + '55'; s.classList.add('has'); s.classList.remove('roll'); } else { ico.textContent = '·'; nm.textContent = '비었음'; ico.style.background = 'transparent'; s.classList.remove('has', 'roll'); } $('bI').classList.toggle('off', !G.item); }
 function useItem(){ if (G.scene !== 'play' || !G.item || G.rolling > 0) return; const k = G.item; G.item = null; G.itemsUsed++; drawSlot(); const fwd = new THREE.Vector3(Math.cos(G.h), 0, Math.sin(G.h)); if (navigator.vibrate) navigator.vibrate(25);
   if (k === 'lid'){ G.shield = 12; toast('뚜껑 방어! 12초', 'good'); beep(700, 0.12, 'triangle', 0.06); shieldMesh.visible = true; }
   else if (k === 'nitro'){ fireBoost(1.2, '니트로!'); }
@@ -596,10 +599,10 @@ function fireBoost(T, label){ G.boost = Math.max(G.boost, T); G.boosts++; toast(
 const RIVAL_DEF = [{ n: '번개 라이더', c: 0xf2a900, css: '#f2a900' }, { n: '치킨 급행', c: 0xe5392e, css: '#ff6b5e' }, { n: '야식 특공대', c: 0x7b3fbf, css: '#b78cff' }, { n: '떡볶이 배달', c: 0x2b6cb0, css: '#6fb3ff' }];
 const RIVALS = [];
 function buildRivals(){ RIVAL_DEF.slice(0, CFG.RIVALS).forEach((d, i) => { const mat = new THREE.MeshStandardMaterial({ color: d.c, roughness: 0.4 }); const g = buildScooter([mat, M.black], mat); g.scale.setScalar(1.28); scene.add(g); attachLabel(g, d.n, d.css, 3.0); RIVALS.push({ n: d.n, css: d.css, g, x: 0, z: 0, h: 0, v: 0, s: 0, lane: 0, laneT: 0, base: 0, frozen: 0, spin: 0, done: 0, wheels: g.userData.wheels, fin: 0 }); }); }
-function resetRivals(){ RIVALS.forEach((r, i) => { r.s = -4 - i * 3; r.lane = (i % 2 ? 1 : -1) * (0.6 + 0.4 * (i >> 1)); r.laneT = r.lane; r.base = 19 + i * 1.2 + rnd(-0.5, 0.5); r.law = i === 0; r.boostT = 0; r.boostCd = rnd(2, 6); r.v = 0; r.frozen = 0; r.spin = 0; r.fin = 0; r.h = atS(0).a; const w = laneXY(0, r.lane); r.x = w.x; r.z = w.y; r.g.position.set(r.x, 0, r.z); r.g.visible = true; }); }
+function resetRivals(){ RIVALS.forEach((r, i) => { r.s = -4 - i * 3; r.lane = (i % 2 ? 1 : -1) * (0.6 + 0.4 * (i >> 1)); r.laneT = r.lane; r.base = (19 + i * 1.2) * 1.2 + rnd(-0.6, 0.6); r.law = i === 0; r.boostT = 0; r.boostCd = rnd(2, 6); r.v = 0; r.frozen = 0; r.spin = 0; r.fin = 0; r.h = atS(0).a; const w = laneXY(0, r.lane); r.x = w.x; r.z = w.y; r.g.position.set(r.x, 0, r.z); r.g.visible = true; }); }
 function updateRivals(dt){ const L = ROUTE[ROUTE.length - 1].s; for (const r of RIVALS){ if (r.fin){ continue; }
     if (G.count > 0){ r.v = 0; continue; } if (r.frozen > 0){ r.frozen -= dt; r.v = Math.max(0, r.v - 30 * dt); if (r.spin > 0){ r.spin -= dt; r.g.rotation.y += dt * 9; } }
-    else { const bend = Math.abs(wrap(atS(Math.min(r.s + 26, L)).a - atS(Math.min(r.s + 3, L)).a)); let want = r.base + Math.sin(G.t * 0.7 + r.base) * 1.6; if (bend > 0.5) want = Math.min(want, 16); if (bend > 1.0) want = Math.min(want, 12);
+    else { const bend = Math.abs(wrap(atS(Math.min(r.s + 26, L)).a - atS(Math.min(r.s + 3, L)).a)); let want = r.base + Math.sin(G.t * 0.7 + r.base) * 1.6; if (bend > 0.5) want = Math.min(want, 19); if (bend > 1.0) want = Math.min(want, 14.5);
       // 직선에서 가끔 부스터를 쓴다
       if (r.boostT > 0){ r.boostT -= dt; want += 8; if (Math.random() < dt * 30) burst(r.g.position.clone().setY(0.6), 1, M.blueSpark, sparkGeo, 2.5, 3, 0.4); } else { r.boostCd -= dt; if (r.boostCd <= 0 && bend < 0.15){ r.boostT = 1.4; r.boostCd = rnd(5, 11); } }
       const red = G.objs.some(o => o.k === 'signal' && o.red && o.s > r.s && o.s - r.s < 18); if (red && r.law) want = Math.min(want, Math.max(0, (G.objs.find(o => o.k === 'signal' && o.red && o.s > r.s).s - r.s - 6) * 1.2));
@@ -671,19 +674,21 @@ addEventListener('keydown', e => { if (['ArrowLeft', 'ArrowRight', 'ArrowDown', 
   if (G.scene === 'title'){ if (e.key === 'ArrowLeft') choosePot(false); else if (e.key === 'ArrowRight') choosePot(true); else if (e.key === ' ' || e.key === 'Enter') startRun(); return; }
   if (G.scene === 'result'){ if (e.key === ' ' || e.key === 'Enter') toTitle(); return; }
   if (G.scene !== 'play') return;
-  if (e.key === 'ArrowLeft' || e.key === 'a') steerL = true; else if (e.key === 'ArrowRight' || e.key === 'd') steerR = true; else if (e.key === 'ArrowUp' || e.key === 'w'){ G.accel = true; startBoostTry(); miniTry(); } else if (e.key === 'ArrowDown' || e.key === 's') G.brake = true; else if (e.key === ' ') jump(); else if (e.key === 'Shift') driftOn(); else if (e.key === 'h') honk(); else if (e.key === 'r') recover(); else if (e.key === 'e' || e.key === 'Control') useItem(); });
+  if (e.key === 'ArrowLeft' || e.key === 'a') steerL = true; else if (e.key === 'ArrowRight' || e.key === 'd') steerR = true; else if (e.key === 'ArrowUp' || e.key === 'w'){ G.accel = true; G.upT = G.t; startBoostTry(); miniTry(); } else if (e.key === 'ArrowDown' || e.key === 's') G.brake = true; else if (e.key === ' ') jump(); else if (e.key === 'Shift') driftOn(); else if (e.key === 'h') honk(); else if (e.key === 'r') recover(); else if (e.key === 'e' || e.key === 'Control') useItem(); });
 addEventListener('keyup', e => { keys[e.key] = false; if (e.key === 'ArrowUp' || e.key === 'w') G.accel = false; if (e.key === 'ArrowDown' || e.key === 's') G.brake = false; if (e.key === 'ArrowLeft' || e.key === 'a') steerL = false; if (e.key === 'ArrowRight' || e.key === 'd') steerR = false; if (e.key === 'Shift') driftOff(); });
 function jump(){ if (G.jump > 0 || G.scene !== 'play') return; G.jump = CFG.JUMP_T; beep(520, 0.08, 'triangle', 0.05); setTimeout(() => beep(760, 0.06, 'triangle', 0.04), 60); }
 function honk(){ if (G.honkCd > 0 || G.scene !== 'play') return; G.honkCd = CFG.HONK_CD; G.honkT = 1.4; beep(440, 0.18, 'square', 0.08); setTimeout(() => beep(440, 0.14, 'square', 0.07), 200); toast('빵빵!', 'good'); for (const w of walkers){ if (Math.hypot(w.position.x - G.x, w.position.z - G.z) < 22) w.userData.walk.flee = 1.5; } }
 function startBoostTry(){ if (G.startWin > 0 && G.count <= 0 && G.scene === 'play'){ G.startWin = 0; fireBoost(1.0, '출발 부스터!'); } else if (G.count > 0 && G.count < 0.35 && G.scene === 'play'){ G.startWin = -1; } }
-function driftOn(){ if (G.scene !== 'play' || G.drift || G.v < CFG.DRIFT_MIN_V || G.count > 0) return; const dir = steerL ? -1 : steerR ? 1 : 0; if (!dir){ warn('방향키를 누른 채 드리프트'); return; } G.drift = 1; G.driftDir = dir; G.driftT = 0; $('bD').classList.add('on'); G.tiltV += dir * 7; G.slip = dir * 0.5; G.h += dir * 0.14; G.camKick = 0.6; beep(220, 0.12, 'sawtooth', 0.05); burst(kart.position.clone().setY(0.3), 6, M.smoke, puffGeo, 1.5, 1.5, 0.8, 0); }
+function driftOn(){ if (G.scene !== 'play' || G.drift || G.count > 0) return; const dir = steerL ? -1 : steerR ? 1 : 0; if (!dir && G.gauge >= 1 && G.boost <= 0){ G.gauge = 0; fireBoost(CFG.BOOST_T, '풀 부스터!'); return; } if (G.v < CFG.DRIFT_MIN_V) return; if (!dir){ warn(G.gauge >= 1 ? '' : '방향키를 누른 채 드리프트'); return; } G.drift = 1; G.driftDir = dir; G.driftT = 0; G.gauge0 = G.gauge; G.driftFail = false; $('bD').classList.add('on'); G.tiltV += dir * 7; G.slip = dir * 0.5; G.h += dir * 0.14; G.camKick = 0.6; beep(220, 0.12, 'sawtooth', 0.05); burst(kart.position.clone().setY(0.3), 6, M.smoke, puffGeo, 1.5, 1.5, 0.8, 0); }
 function driftOff(){ if (!G.drift) return; G.drift = 0; $('bD').classList.remove('on'); G.tiltV -= G.driftDir * 9;
+  if (G.driftFail){ G.driftFail = false; return; }
+  if (G.driftT > 0.28) G.gauge = Math.min(1, G.gauge + 0.12 * Math.min(1, G.driftT / 0.9));
   if (G.gauge >= 1){ G.gauge = 0; fireBoost(CFG.BOOST_T, '풀 부스터!'); }
-  else if (G.driftT > 0.28 && Math.abs(G.v) > 9){ G.miniWin = 0.45; G.miniG = G.gauge; $('bA').classList.add('win'); G.gauge = Math.max(0, G.gauge - 0.15); } }
-function miniTry(){ if (G.miniWin > 0 && G.scene === 'play'){ G.miniWin = 0; $('bA').classList.remove('win'); G.mini = CFG.MINI_T; G.grace = Math.max(G.grace, 0.8); G.v = Math.min(CFG.MINI_V, G.v + 4 + G.miniG * 4); toast('순간 부스터!', 'boost'); beep(560, 0.08, 'square', 0.06); setTimeout(() => beep(840, 0.1, 'square', 0.06), 70); burst(kart.position.clone().setY(0.6), 14, M.blueSpark, sparkGeo, 3, 4, 0.6); G.camKick = 0.8; G.minis = (G.minis || 0) + 1; } }
+  else if (G.driftT > 0.28 && Math.abs(G.v) > 9){ G.miniWin = 0.6; G.miniG = G.gauge; $('bA').classList.add('win'); if (G.t - G.upT < 0.3) miniTry(); } }
+function miniTry(){ if (G.miniWin > 0 && G.scene === 'play'){ G.miniWin = 0; $('bA').classList.remove('win'); G.mini = CFG.MINI_T; G.grace = Math.max(G.grace, 1.2); G.v = Math.min(CFG.MINI_V, Math.max(G.v, 14) + 7 + G.miniG * 4); toast('순간 부스터!', 'boost'); beep(440, 0.1, 'square', 0.07); setTimeout(() => beep(700, 0.1, 'square', 0.07), 60); setTimeout(() => beep(1050, 0.16, 'square', 0.07), 130); burst(kart.position.clone().setY(0.6), 22, M.blueSpark, sparkGeo, 4, 5, 0.7); G.camKick = 1.3; G.shake = Math.max(G.shake, 0.35); $('boostfx').style.opacity = 0.7; setTimeout(() => { if (G.boost <= 0) $('boostfx').style.opacity = 0; }, 500); if (navigator.vibrate) navigator.vibrate(30); G.minis = (G.minis || 0) + 1; } }
 const hold = (el, on, off) => { el.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); el.classList.add('on'); on(); }); const f = () => { el.classList.remove('on'); off(); }; el.addEventListener('pointerup', f); el.addEventListener('pointercancel', f); el.addEventListener('pointerleave', f); };
 hold($('bL'), () => { steerL = true; }, () => { steerL = false; }); hold($('bR'), () => { steerR = true; }, () => { steerR = false; });
-hold($('bJ'), jump, () => {}); hold($('bI'), useItem, () => {}); hold($('bA'), () => { G.accel = true; startBoostTry(); miniTry(); }, () => { G.accel = false; }); hold($('bB'), () => { G.brake = true; }, () => { G.brake = false; }); hold($('bD'), driftOn, driftOff);
+hold($('bJ'), jump, () => {}); hold($('bI'), useItem, () => {}); hold($('bA'), () => { G.accel = true; G.upT = G.t; startBoostTry(); miniTry(); }, () => { G.accel = false; }); hold($('bB'), () => { G.brake = true; }, () => { G.brake = false; }); hold($('bD'), driftOn, driftOff);
 let lastTap = 0; cv.addEventListener('pointerdown', e => { if (G.scene !== 'play') return; e.preventDefault(); const now = performance.now(); if (now - lastTap < 280) honk(); lastTap = now; });
 document.querySelectorAll('.pot').forEach(p => p.addEventListener('click', () => choosePot(p.dataset.s === '1')));
 $('go').addEventListener('click', startRun); $('again').addEventListener('click', toTitle); $('share').addEventListener('click', share);
@@ -699,6 +704,7 @@ function engineTick(){ try { if (!AC) return; if (!engine){ const o = AC.createO
 // ───────── 업데이트 ─────────
 function hit(kind, mult){
   if (G.shield > 0 && kind !== 'land' && kind !== 'cone'){ G.shield = 0; shieldMesh.visible = false; toast('뚜껑이 막았다!', 'good'); beep(880, 0.12, 'triangle', 0.07); burst(potGroup.getWorldPosition(new THREE.Vector3()), 24, M.blueSpark, sparkGeo, 4, 5, 0.7); G.shake = Math.max(G.shake, 0.4); if (kind === 'car' || kind === 'villain' || kind === 'wall') G.v *= 0.8; return; }
+  if (G.drift && kind !== 'land' && kind !== 'cone'){ G.gauge = Math.min(G.gauge, G.gauge0); G.driftFail = true; driftOff(); toast('드리프트 실패', ''); }
   const d = CFG.DMG[kind] * mult; G.soup -= d; G.dmg[kind] = (G.dmg[kind] || 0) + d; G.shake = kind === 'land' || kind === 'cone' ? 0.3 : 1; G.slow = kind === 'land' || kind === 'cone' ? 0 : 0.35; G.tiltV += rnd(-6, 6);
   const names = { pothole: '요철! 국물 출렁', car: '쾅! 차량 충돌', ped: '보행자!', signal: '빨간불 무시', land: '착지 출렁', wall: '쿵! 벽', cone: '콘 날림', villain: '국물 도둑에게 뺏김' };
   toast(names[kind] + ' −' + Math.round(d), kind === 'land' || kind === 'cone' ? '' : 'bad'); beep(kind === 'land' || kind === 'cone' ? 200 : 110, 0.2, 'sawtooth', kind === 'cone' ? 0.03 : 0.08);
@@ -724,7 +730,7 @@ function update(dt){
   updateRivals(dt); updateProj(dt); updateStation(rdt);
   if (G.scene !== 'play') return;
   if (G.count > 0){ const prev = G.count; G.count -= dt; G.v = 0; const c = $('count'); const n = Math.ceil(G.count - 0.6); if (Math.floor(prev * 1) !== Math.floor(G.count * 1) || prev === 3.6){ c.textContent = n >= 1 ? n : 'GO!'; c.classList.toggle('go', n < 1); c.style.opacity = 1; c.style.transform = 'scale(1.3)'; setTimeout(() => { c.style.transition = 'transform .25s, opacity .3s'; c.style.transform = 'scale(1)'; }, 10); if (n >= 1) beep(440, 0.12, 'square', 0.05); else beep(880, 0.25, 'square', 0.07); } if (G.count <= 0){ G.count = 0; G.startWin = G.startWin === -1 ? 0 : 0.42; setTimeout(() => { $('count').style.opacity = 0; }, 500); } return; }
-  if (G.startWin > 0) G.startWin -= dt; if (G.mini > 0) G.mini -= dt; if (G.wallCd > 0) G.wallCd -= dt; if (G.miniWin > 0){ G.miniWin -= dt; if (G.miniWin <= 0) $('bA').classList.remove('win'); } if (G.shield > 0){ G.shield -= dt; if (G.shield <= 0){ G.shield = 0; shieldMesh.visible = false; } } if (G.magnet > 0) G.magnet -= dt; if (G.rolling > 0){ G.rolling -= dt; if (G.rolling <= 0){ G.rolling = 0; G.item = pickItem(); G.itemT = G.t; toast(ITEMS[G.item].n + ' 획득 · E로 사용', 'good'); beep(1046, 0.1, 'triangle', 0.06); } drawSlot(); } if (G.camKick > 0) G.camKick -= dt;
+  if (G.startWin > 0) G.startWin -= dt; if (G.mini > 0) G.mini -= dt; if (G.wallCd > 0) G.wallCd -= dt; if (G.miniWin > 0){ G.miniWin -= dt; if (G.miniWin <= 0) $('bA').classList.remove('win'); } if (G.shield > 0){ G.shield -= dt; if (G.shield <= 0){ G.shield = 0; shieldMesh.visible = false; } } if (G.magnet > 0) G.magnet -= dt; if (G.rolling > 0){ G.rolling -= dt; if (G.rolling <= 0){ G.rolling = 0; G.item = pickItem(); G.itemT = G.t; toast(ITEMS[G.item].e + ' ' + ITEMS[G.item].n + ' 획득 · E로 사용', 'good'); beep(1046, 0.1, 'triangle', 0.06); } drawSlot(); } if (G.camKick > 0) G.camKick -= dt;
   G.timeLeft -= dt; if (G.timeLeft <= 0){ G.timeLeft = 0; finish('cold'); return; }
   // ── 조향
   const stIn = (steerL ? -1 : 0) + (steerR ? 1 : 0); G.steer += (stIn - G.steer) * Math.min(1, dt * 10);
@@ -755,7 +761,7 @@ function update(dt){
       G.soup -= 0.5 * mult * dt; G.dmg.drift = (G.dmg.drift || 0) + 0.5 * mult * dt; } }
   else { const turn = G.steer * CFG.STEER * clamp(spd / 8, 0, 1) * (1 - 0.42 * Math.min(1, spd / CFG.VMAX)) * dirSign; G.h += turn * dt; G.slip += (0 - G.slip) * Math.min(1, dt * 6);
     const grip = G.surface === 'grass' ? 4 : 8; G.vd += wrap(G.h - G.vd) * Math.min(1, grip * dt); G.tiltV += turn * 0.6;
-    if (G.gauge > 0 && G.gauge < 1) G.gauge = Math.max(0, G.gauge - dt * 0.12); }
+    if (G.surface === 'road' && spd > 14 && G.boost <= 0 && G.gauge < 1) G.gauge = Math.min(1, G.gauge + 0.03 * dt * (spd / CFG.VMAX)); }
   // ── 이동 + 건물 충돌
   const nx = G.x + Math.cos(G.vd) * G.v * dt, nz = G.z + Math.sin(G.vd) * G.v * dt; const fdx = Math.cos(G.vd) * 0.9 * dirSign, fdz = Math.sin(G.vd) * 0.9 * dirSign;
   const blocked = (x, z) => inBuilding(x, z) || inBuilding(x + fdx, z + fdz);
@@ -813,7 +819,7 @@ function render(dt){
   const wr = G.v * dt * 3; for (const w of wheels) w.rotation.x += wr; if (shieldMesh.visible){ shieldMesh.scale.setScalar(1 + Math.sin(G.t * 6) * 0.06); shieldMesh.material.opacity = 0.18 + 0.12 * Math.sin(G.t * 4) + (G.shield < 3 ? (Math.sin(G.t * 20) > 0 ? 0.1 : -0.1) : 0); }
   potGroup.rotation.z = G.tilt * 0.06 + G.slip * 0.35; potGroup.rotation.x = Math.sin(G.t * 14) * Math.min(1, Math.max(0, (Math.abs(G.v) - CFG.DRAIN_V) / 7)) * 0.12 + G.bump * Math.sin(G.t * 35) * 0.08;
   const lvl = Math.max(0.05, G.soup / 100); brothMesh.position.y = 0.06 + 0.34 * lvl; brothMesh.scale.setScalar(0.4 + 0.6 * lvl);
-  for (const f of flames){ f.visible = G.boost > 0 || G.mini > 0; if (f.visible){ f.scale.set(1, (G.boost > 0 ? 1 : 0.55) + Math.random() * 0.6, 1); } }
+  for (const f of flames){ f.visible = G.boost > 0 || G.mini > 0; if (f.visible){ f.scale.set(1, (G.boost > 0 ? 1 : 0.85) + Math.random() * 0.6, 1); } }
   // 안내 화살표 (경로 앞 35m 방향)
   const tgt = atS(Math.min(G.prog + 35, ROUTE[ROUTE.length - 1].s)); const gd = Math.hypot(G.x - MAP.goal[0], G.z - MAP.goal[1]); const tx = gd < 60 ? MAP.goal[0] : tgt.x, tz = gd < 60 ? MAP.goal[1] : tgt.y;
   const Lr = ROUTE[ROUTE.length - 1].s; const lostNow = G.routeD > CFG.ROUTE_LOST; for (let i = 0; i < chevrons.length; i++){ const c = chevrons[i]; const s = G.prog + 7 + i * 8 + ((G.t * 7) % 8); if (G.scene !== 'play' || s > Lr - 2){ c.visible = false; continue; } const p = atS(s); c.visible = true; c.position.set(p.x, 0.12 + Math.sin(G.t * 4 - i * 0.6) * 0.06, p.y); c.rotation.y = -p.a + Math.PI / 2; const sc = 1.1 + Math.min(1, i / 8) * 0.5; c.scale.set(sc, 1, sc); c.material = lostNow ? M.chevronLost : M.chevron; }
@@ -838,7 +844,7 @@ function render(dt){
 function hud(){
   if (G.scene !== 'play') return; const L = ROUTE[ROUTE.length - 1].s;
   $('time').textContent = Math.ceil(G.timeLeft); $('time').style.color = G.timeLeft < 15 ? '#ff8a65' : ''; $('soup').style.width = Math.max(0, G.soup) + '%'; $('souppct').textContent = Math.max(0, Math.round(G.soup)) + '%';
-  $('boost').style.width = (G.gauge * 100) + '%'; $('boost').classList.toggle('full', G.gauge >= 1); $('boost').classList.toggle('s2', G.gauge > 0.5 && G.gauge < 1); $('boostlab').textContent = G.boost > 0 ? '발동!' : G.gauge >= 1 ? '놓으면 발동' : G.drift ? '충전 중' : '';
+  $('boost').style.width = (G.gauge * 100) + '%'; $('boost').classList.toggle('full', G.gauge >= 1); $('boost').classList.toggle('s2', G.gauge > 0.5 && G.gauge < 1); $('boostlab').textContent = G.boost > 0 ? '발동!' : G.gauge >= 1 ? '준비 완료 · Shift' : G.drift ? '충전 중' : ''; const readyB = G.gauge >= 1 && G.boost <= 0; $('boostReady').style.display = readyB ? 'block' : 'none'; $('bD').classList.toggle('full', readyB);
   $('speed').textContent = Math.round(Math.abs(G.v) * 3.6); $('speed').classList.toggle('hot', Math.abs(G.v) > CFG.DRAIN_V && G.boost <= 0); $('speed').classList.toggle('boost', G.boost > 0);
   $('fill').style.width = (100 * G.prog / L) + '%'; const ticks = $('track').querySelectorAll('.tick'); G.landmarks.forEach((lm, i) => ticks[i] && ticks[i].classList.toggle('on', G.prog >= lm.s));
   const nx = G.landmarks[Math.min(G.nextLm, G.landmarks.length - 1)]; $('nextlm').textContent = (G.routeD > CFG.ROUTE_LOST ? '경로 이탈 · ' : '') + '다음 ' + nx.n; $('dist').textContent = Math.max(0, Math.round(nx.s - G.prog)) + 'm';
